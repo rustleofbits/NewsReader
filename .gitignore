@@ -1,0 +1,15 @@
+# Xcode
+xcuserdata/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+xcuserdata/
+DerivedData/
+*.dSYM.zip
+*.dSYM
+
+# Config with API key
+Config.xcconfig
+
+# OS
+.DS_Store
