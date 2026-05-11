@@ -9,7 +9,10 @@ import Combine
 import SwiftData
 
 class SavedArticlesVM {
-    func deleteArticle(article: SavedArticle, modelContext: ModelContext) {
-        modelContext.delete(article)
+    func deleteArticle(article: Article, modelContext: ModelContext, savedArticles: [SavedArticle]) {
+        let savedArticle = savedArticles.first { $0.url == article.url }
+        if let savedArticle {
+            modelContext.delete(savedArticle)
+        }
     }
 }

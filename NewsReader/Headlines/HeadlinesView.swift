@@ -23,10 +23,6 @@ struct HeadlinesView: View {
                         isSaved: viewModel.isSaved(article: article),
                         onSaveTap: { viewModel.onSaveTap(article: $0, savedArticles: savedArticles)}
                     )
-                    .background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .padding(.horizontal)
-                    .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 2)
                 }
             }
         }

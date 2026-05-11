@@ -9,14 +9,27 @@ import SwiftUI
 import SwiftData
 
 struct SavedArticlesView: View {
+    @Environment(\.modelContext) var modelContext
     @Query var savedArticles: [SavedArticle]
+    var viewModel = SavedArticlesVM()
     
     var body: some View {
-        List {
-            ForEach(savedArticles, id: \.title) { article in
-                VStack {
-                    Text(article.title)
-                    Text(article.descr ?? "")
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(savedArticles, id: \.url) { savedArticle in
+                    let article = savedArticle.toArticle()
+                    NewsDetail(
+                        article: article,
+                        isSaved: true,
+                        onSaveTap: {
+                            viewModel.deleteArticle(
+                                article: $0,
+                                modelContext: modelContext,
+                                savedArticles: savedArticles
+                            )
+                        }
+                    )
+                    
                 }
             }
         }

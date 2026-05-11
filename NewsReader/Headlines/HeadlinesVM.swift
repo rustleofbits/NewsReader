@@ -37,7 +37,7 @@ class HeadlinesVM: ObservableObject {
             savedUrls.remove(savedArticle.url)
             modelContext?.delete(savedArticle)
         } else {
-            let newArticle = SavedArticle(title: article.title, descr: article.description, url: article.url)
+            let newArticle = article.toSavedArticle()
             savedUrls.insert(newArticle.url)
             modelContext?.insert(newArticle)
         }

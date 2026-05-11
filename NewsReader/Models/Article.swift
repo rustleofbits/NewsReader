@@ -13,4 +13,8 @@ struct Article {
     let urlToImage: String?
     let content: String?
     let url: String
+    
+    func toSavedArticle() -> SavedArticle {
+        SavedArticle(title: title, description: description, publishedAt: publishedAt, author: author, urlToImage: urlToImage, content: content, url: url)
+    }
 }
