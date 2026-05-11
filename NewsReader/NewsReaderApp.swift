@@ -10,16 +10,11 @@ import SwiftData
 
 @main
 struct NewsReaderApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+    var modelContainer: ModelContainer = {
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: SavedArticle.self)
         } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+            fatalError("Couldn't create modelContainer: \(error)")
         }
     }()
 
@@ -27,6 +22,6 @@ struct NewsReaderApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(modelContainer)
     }
 }
