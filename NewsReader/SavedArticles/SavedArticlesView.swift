@@ -16,7 +16,7 @@ struct SavedArticlesView: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
-                ForEach(savedArticles, id: \.url) { savedArticle in
+                ForEach(savedArticles) { savedArticle in
                     let article = savedArticle.toArticle()
                     NewsDetail(
                         article: article,
@@ -33,5 +33,6 @@ struct SavedArticlesView: View {
                 }
             }
         }
+        .navigationTitle("Saved articles")
     }
 }

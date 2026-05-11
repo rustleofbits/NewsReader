@@ -16,7 +16,7 @@ struct ContentView: View {
                     HeadlinesView()
                 }
             }
-            Tab("Saved", systemImage: "star") {
+            Tab("Saved", systemImage: "bookmark") {
                 NavigationStack {
                     SavedArticlesView()
                 }
