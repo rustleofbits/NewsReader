@@ -10,11 +10,13 @@ import SwiftData
 @Model
 class SavedArticle {
     var title: String
-    var descr: String
+    var descr: String?
+    var url: String
     
-    init(title: String, descr: String) {
+    init(title: String, descr: String?, url: String) {
         self.title = title
         self.descr = descr
+        self.url = url
     }
 }
 

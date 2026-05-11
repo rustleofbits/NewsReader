@@ -9,6 +9,8 @@ import SwiftUI
 
 struct NewsDetail: View {
     let article: Article
+    let isSaved: Bool
+    var onSaveTap: ((Article) -> Void)?
     
     var body: some View {
         HStack {
@@ -29,7 +31,7 @@ struct NewsDetail: View {
                 }
             }
             VStack(alignment: .leading, spacing: 10) {
-                Text(article.title ?? "")
+                Text(article.title)
                     .bold()
                     .multilineTextAlignment(.leading)
                     .lineLimit(4)
@@ -40,9 +42,9 @@ struct NewsDetail: View {
                         .foregroundStyle(.gray)
                     Spacer()
                     Button {
-                        
+                        onSaveTap?(article)
                     } label: {
-                        Image(systemName: "bookmark")
+                        Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                             .foregroundStyle(.gray)
                     }
                     
@@ -57,5 +59,5 @@ struct NewsDetail: View {
 }
 
 #Preview {
-    NewsDetail(article: Article(id: "", title: "Test", description: "Descr", publishedAt: "14 May", author: "Hej", urlToImage: "", content: "dkjnkfn fkjnfkjnf"))
+    NewsDetail(article: Article(title: "Test", description: "Descr", publishedAt: "14 May", author: "Hej", urlToImage: "", content: "dkjnkfn fkjnfkjnf", url: ""), isSaved: false, onSaveTap: nil)
 }

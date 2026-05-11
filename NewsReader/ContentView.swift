@@ -18,7 +18,7 @@ struct ContentView: View {
             }
             Tab("Saved", systemImage: "star") {
                 NavigationStack {
-                    Color(.pink)
+                    SavedArticlesView()
                 }
             }
         }
