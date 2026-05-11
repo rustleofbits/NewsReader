@@ -28,6 +28,7 @@ struct HeadlinesView: View {
                 await viewModel.fetchArticles()
             }
         }
+        .navigationTitle("Headlines")
     }
 }
 

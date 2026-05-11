@@ -12,20 +12,27 @@ struct NewsDetail: View {
     
     var body: some View {
         HStack {
-            Image("Mario")
-                .resizable()
-                .aspectRatio(4/3, contentMode: .fill)
-                .frame(width: 150)
-                .clipped()
+            if let urlToImage = article.urlToImage {
+                AsyncImage(url: URL(string: urlToImage)) { res in
+                    switch res {
+                    case .empty, .failure:
+                        Spacer()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(4/3, contentMode: .fill)
+                            .frame(width: 150)
+                            .clipped()
+                    @unknown default:
+                        Spacer()
+                    }
+                }
+            }
             VStack(alignment: .leading, spacing: 10) {
                 Text(article.title ?? "")
-                    .font(.title3)
                     .bold()
                     .multilineTextAlignment(.leading)
-                    .lineLimit(2)
-                Text(article.description ?? "")
-                    .foregroundStyle(.gray)
-                    .lineLimit(2)
+                    .lineLimit(4)
                 Spacer()
                 HStack {
                     Text(article.publishedAt ?? "")
@@ -43,6 +50,7 @@ struct NewsDetail: View {
             }
             .padding(.vertical)
             .padding([.trailing], 16)
+            .padding([.leading], article.urlToImage == nil ? 16 : 0)
         }
         .frame(height: 200)
     }

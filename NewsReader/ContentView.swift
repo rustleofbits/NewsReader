@@ -12,10 +12,14 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("Headlines", systemImage: "newspaper") {
-                HeadlinesView()
+                NavigationStack {
+                    HeadlinesView()
+                }
             }
             Tab("Saved", systemImage: "star") {
-                Color(.pink)
+                NavigationStack {
+                    Color(.pink)
+                }
             }
         }
     }

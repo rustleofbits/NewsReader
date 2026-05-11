@@ -51,7 +51,22 @@ struct Response: Decodable {
         let content: String?
         
         func toModel() -> Article {
-            Article(id: UUID().uuidString, title: title, description: description, publishedAt: publishedAt, author: author, urlToImage: urlToImage, content: content)
+            Article(
+                id: UUID().uuidString,
+                title: title,
+                description: description,
+                publishedAt: formatISO8601Date(str: publishedAt),
+                author: author,
+                urlToImage: urlToImage,
+                content: content
+            )
+        }
+        
+        func formatISO8601Date(str: String?) -> String? {
+            guard let str, let date = ISO8601DateFormatter().date(from: str) else { return nil }
+            let newFormatter = DateFormatter()
+            newFormatter.dateFormat = "MMM d, YYYY"
+            return newFormatter.string(from: date)
         }
     }
     
