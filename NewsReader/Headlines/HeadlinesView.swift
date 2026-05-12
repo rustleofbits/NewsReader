@@ -22,7 +22,7 @@ struct HeadlinesView: View {
                         destination: ArticleDetailView(
                             article: article,
                             isSaved: viewModel.isSaved(article: article),
-                            onSaveTap: { viewModel.onSaveTap(article: article, savedArticles: savedArticles) }
+                            onSaveTap: { viewModel.onSaveTap(article: $0, savedArticles: savedArticles) }
                         )
                     ) {
                         NewsDetail(

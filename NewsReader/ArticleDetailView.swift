@@ -10,7 +10,7 @@ import SwiftUI
 struct ArticleDetailView: View {
     let article: Article
     var isSaved: Bool
-    var onSaveTap: (() -> Void)?
+    var onSaveTap: ((Article) -> Void)?
     
     var body: some View {
         ScrollView {
@@ -39,7 +39,7 @@ struct ArticleDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    onSaveTap?()
+                    onSaveTap?(article)
                 } label: {
                     Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                 }

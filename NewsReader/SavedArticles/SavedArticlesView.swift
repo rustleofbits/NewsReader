@@ -11,7 +11,7 @@ import SwiftData
 struct SavedArticlesView: View {
     @Environment(\.modelContext) var modelContext
     @Query var savedArticles: [SavedArticle]
-    var viewModel = SavedArticlesVM()
+    @StateObject var viewModel = SavedArticlesVM()
     
     var body: some View {
         ScrollView {
@@ -22,7 +22,7 @@ struct SavedArticlesView: View {
                         destination: ArticleDetailView(
                             article: article,
                             isSaved: viewModel.isSaved(article: article),
-                            onSaveTap: { viewModel.onSaveTap(article: article, savedArticles: savedArticles, modelContext: modelContext) }
+                            onSaveTap: { viewModel.onSaveTap(article: $0, savedArticles: savedArticles, modelContext: modelContext) }
                         )
                     ) {
                         NewsDetail(

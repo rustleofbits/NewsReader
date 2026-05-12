@@ -8,7 +8,7 @@
 import Combine
 import SwiftData
 
-class SavedArticlesVM {
+class SavedArticlesVM: ObservableObject {
     @Published var savedUrls = Set<String>()
     
     func onSaveTap(article: Article, savedArticles: [SavedArticle], modelContext: ModelContext) {
