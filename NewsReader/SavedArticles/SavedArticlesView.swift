@@ -18,18 +18,19 @@ struct SavedArticlesView: View {
             LazyVStack(spacing: 16) {
                 ForEach(savedArticles) { savedArticle in
                     let article = savedArticle.toArticle()
-                    NewsDetail(
-                        article: article,
-                        isSaved: true,
-                        onSaveTap: {
-                            viewModel.deleteArticle(
-                                article: $0,
-                                modelContext: modelContext,
-                                savedArticles: savedArticles
-                            )
-                        }
-                    )
-                    
+                    NavigationLink(destination: ArticleDetailView(article: article)) {
+                        NewsDetail(
+                            article: article,
+                            isSaved: true,
+                            onSaveTap: {
+                                viewModel.deleteArticle(
+                                    article: $0,
+                                    modelContext: modelContext,
+                                    savedArticles: savedArticles
+                                )
+                            }
+                        )   
+                    }.buttonStyle(.plain)
                 }
             }
         }

@@ -18,11 +18,13 @@ struct HeadlinesView: View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(viewModel.articles, id: \.url) { article in
-                    NewsDetail(
-                        article: article,
-                        isSaved: viewModel.isSaved(article: article),
-                        onSaveTap: { viewModel.onSaveTap(article: $0, savedArticles: savedArticles)}
-                    )
+                    NavigationLink(destination: ArticleDetailView(article: article)) {
+                        NewsDetail(
+                            article: article,
+                            isSaved: viewModel.isSaved(article: article),
+                            onSaveTap: { viewModel.onSaveTap(article: $0, savedArticles: savedArticles)}
+                        )
+                    }.buttonStyle(.plain)
                 }
             }
         }
