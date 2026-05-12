@@ -27,7 +27,7 @@ struct SavedArticlesView: View {
                     ) {
                         NewsDetail(
                             article: article,
-                            isSaved: viewModel.isSaved(article: article),
+                            isSaved: true,
                             onSaveTap: {
                                 viewModel.onSaveTap(
                                     article: $0,
