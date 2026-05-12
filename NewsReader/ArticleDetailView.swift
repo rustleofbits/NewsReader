@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ArticleDetailView: View {
     let article: Article
+    var isSaved: Bool
+    var onSaveTap: (() -> Void)?
+    
     var body: some View {
         ScrollView {
             if let url = article.urlToImage {
@@ -36,15 +39,11 @@ struct ArticleDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    
+                    onSaveTap?()
                 } label: {
-                    Image(systemName: "bookmark")
+                    Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                 }
             }
         }
     }
-}
-
-#Preview {
-    ArticleDetailView(article: Article(title: "fnjkfn", description: "flnfkjn", publishedAt: "kdfjnkf", author: "dfljnkf", urlToImage: "", content: "kdjnjkdn dkjndjnd dkjndkjnd dkjndjkdn dkjndjkn", url: ""))
 }

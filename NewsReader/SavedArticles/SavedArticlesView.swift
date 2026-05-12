@@ -18,15 +18,21 @@ struct SavedArticlesView: View {
             LazyVStack(spacing: 16) {
                 ForEach(savedArticles) { savedArticle in
                     let article = savedArticle.toArticle()
-                    NavigationLink(destination: ArticleDetailView(article: article)) {
+                    NavigationLink(
+                        destination: ArticleDetailView(
+                            article: article,
+                            isSaved: viewModel.isSaved(article: article),
+                            onSaveTap: { viewModel.onSaveTap(article: article, savedArticles: savedArticles, modelContext: modelContext) }
+                        )
+                    ) {
                         NewsDetail(
                             article: article,
-                            isSaved: true,
+                            isSaved: viewModel.isSaved(article: article),
                             onSaveTap: {
-                                viewModel.deleteArticle(
+                                viewModel.onSaveTap(
                                     article: $0,
-                                    modelContext: modelContext,
-                                    savedArticles: savedArticles
+                                    savedArticles: savedArticles,
+                                    modelContext: modelContext
                                 )
                             }
                         )   
@@ -35,5 +41,10 @@ struct SavedArticlesView: View {
             }
         }
         .navigationTitle("Saved articles")
+        .onAppear() {
+            Task {
+                viewModel.fetchUrls(savedArticles: savedArticles)
+            }
+        }
     }
 }
