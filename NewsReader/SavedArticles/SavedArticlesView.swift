@@ -14,37 +14,41 @@ struct SavedArticlesView: View {
     @StateObject var viewModel = SavedArticlesVM()
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(savedArticles) { savedArticle in
-                    let article = savedArticle.toArticle()
-                    NavigationLink(
-                        destination: ArticleDetailView(
-                            article: article,
-                            isSaved: viewModel.isSaved(article: article),
-                            onSaveTap: { viewModel.onSaveTap(article: $0, savedArticles: savedArticles, modelContext: modelContext) }
-                        )
-                    ) {
-                        NewsDetail(
-                            article: article,
-                            isSaved: true,
-                            onSaveTap: {
-                                viewModel.onSaveTap(
-                                    article: $0,
-                                    savedArticles: savedArticles,
-                                    modelContext: modelContext
+        Group {
+            if savedArticles.isEmpty {
+                Text("No saved articles yet")
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(savedArticles) { savedArticle in
+                            let article = savedArticle.toArticle()
+                            NavigationLink(
+                                destination: ArticleDetailView(
+                                    article: article,
+                                    isSaved: true,
+                                    onSaveTap: { viewModel.onSaveTap(article: $0, savedArticles: savedArticles, modelContext: modelContext) }
                                 )
-                            }
-                        )   
-                    }.buttonStyle(.plain)
+                            ) {
+                                NewsDetail(
+                                    article: article,
+                                    isSaved: true,
+                                    onSaveTap: {
+                                        viewModel.onSaveTap(
+                                            article: $0,
+                                            savedArticles: savedArticles,
+                                            modelContext: modelContext
+                                        )
+                                    }
+                                )
+                            }.buttonStyle(.plain)
+                        }
+                    }
                 }
             }
         }
         .navigationTitle("Saved articles")
         .onAppear() {
-            Task {
-                viewModel.fetchUrls(savedArticles: savedArticles)
-            }
+            viewModel.fetchUrls(savedArticles: savedArticles)
         }
     }
 }

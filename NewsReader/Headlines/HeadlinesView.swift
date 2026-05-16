@@ -22,6 +22,8 @@ struct HeadlinesView: View {
                 Text(error)
             } else if viewModel.isLoading {
                 ProgressView()
+            } else if viewModel.articles.isEmpty {
+                Text("No news")
             } else {
                 ScrollView {
                     LazyVStack(spacing: 16) {

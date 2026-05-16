@@ -19,8 +19,10 @@ class HeadlinesVM: ObservableObject {
     var modelContext: ModelContext?
 
     func fetchArticles() async {
-        isLoading = true
-        error = nil
+        await MainActor.run {
+            isLoading = true
+            error = nil
+        }
         do {
             let fetchedArticles = try await service.fetchArticles()
             await MainActor.run {
@@ -28,7 +30,10 @@ class HeadlinesVM: ObservableObject {
                 isLoading = false
             }
         } catch {
-            self.error = error.localizedDescription
+            await MainActor.run {
+                isLoading = false
+                self.error = error.localizedDescription
+            }
         }
     }
     
