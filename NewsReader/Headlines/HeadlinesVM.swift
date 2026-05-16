@@ -13,13 +13,22 @@ class HeadlinesVM: ObservableObject {
     private let service = NewsApiService()
     @Published var savedUrls = Set<String>()
     @Published var articles: [Article] = []
+    @Published var isLoading = false
+    @Published var error: String?
     
     var modelContext: ModelContext?
 
     func fetchArticles() async {
-        let fetchedArticles = await service.fetchArticles()
-        await MainActor.run {
-            articles = fetchedArticles
+        isLoading = true
+        error = nil
+        do {
+            let fetchedArticles = try await service.fetchArticles()
+            await MainActor.run {
+                articles = fetchedArticles
+                isLoading = false
+            }
+        } catch {
+            self.error = error.localizedDescription
         }
     }
     
